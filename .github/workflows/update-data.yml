@@ -2,8 +2,11 @@ name: Update Announcements
 
 on:
   schedule:
-    - cron: '0 0 * * *'       # 每天自動執行（台灣早上 8 點）
-  workflow_dispatch:          # 可以手動執行
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write   # ← 加上這個！
 
 jobs:
   update-data:
