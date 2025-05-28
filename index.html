@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>崇明國中公告與榮譽榜</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+  <header class="bg-white shadow sticky top-0 z-50">
+    <nav class="container mx-auto p-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-blue-600">崇明國中</h1>
+      <ul class="hidden md:flex gap-6 text-gray-700 font-medium">
+        <li><a href="#announcements" class="hover:text-blue-500">公告</a></li>
+        <li><a href="#honors" class="hover:text-blue-500">榮譽榜</a></li>
+        <li><a href="#links" class="hover:text-blue-500">重點網站</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container mx-auto p-4">
+    <!-- 公告 -->
+    <section id="announcements" class="mb-8">
+      <h2 class="text-2xl font-bold mb-4">📢 最新公告</h2>
+      <ul id="announcementList" class="space-y-3"></ul>
+    </section>
+
+    <!-- 榮譽榜 -->
+    <section id="honors" class="mb-8">
+      <h2 class="text-2xl font-bold mb-4">🏆 榮譽榜</h2>
+      <ul id="honorList" class="space-y-3"></ul>
+    </section>
+
+    <!-- 重點網站 -->
+    <section id="links">
+      <h2 class="text-2xl font-bold mb-4">🔗 重點網站</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="https://www.edu.tw" target="_blank" class="bg-white p-4 rounded-xl shadow hover:bg-blue-50">
+          <h3 class="text-lg font-semibold">教育部</h3>
+          <p class="text-sm text-gray-600">https://www.edu.tw</p>
+        </a>
+        <a href="https://www.tn.edu.tw" target="_blank" class="bg-white p-4 rounded-xl shadow hover:bg-blue-50">
+          <h3 class="text-lg font-semibold">臺南市教育局</h3>
+          <p class="text-sm text-gray-600">https://www.tn.edu.tw</p>
+        </a>
+        <a href="https://eschool.tn.edu.tw" target="_blank" class="bg-white p-4 rounded-xl shadow hover:bg-blue-50">
+          <h3 class="text-lg font-semibold">校務行政系統</h3>
+          <p class="text-sm text-gray-600">https://eschool.tn.edu.tw</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // 從 announcements.json 載入公告資料
+    fetch('data/announcements.json')
+      .then(response => response.json())
+      .then(data => {
+        const annList = document.getElementById('announcementList');
+        data.forEach(item => {
+          const li = document.createElement('li');
+          li.className = 'bg-white p-4 shadow rounded-lg border-l-4 border-blue-500 hover:bg-blue-50 cursor-pointer';
+          li.innerHTML = `<span class='font-semibold text-blue-700'>${item.date}</span> - ${item.title}`;
+          li.onclick = () => window.open(item.url, '_blank');
+          annList.appendChild(li);
+        });
+      });
+
+    // 從 honors.json 載入榮譽榜資料
+    fetch('data/honors.json')
+      .then(response => response.json())
+      .then(data => {
+        const honorList = document.getElementById('honorList');
+        data.forEach(item => {
+          const li = document.createElement('li');
+          li.className = 'bg-white p-4 shadow rounded-lg border-l-4 border-yellow-400 hover:bg-yellow-50 cursor-pointer';
+          li.innerHTML = `${item.student} - ${item.achievement}（${item.date}）`;
+          li.onclick = () => window.open(item.url, '_blank');
+          honorList.appendChild(li);
+        });
+      });
+  </script>
+</body>
+</html>
