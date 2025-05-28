@@ -2,32 +2,30 @@ name: Update Announcements
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # UTC時間，每天凌晨0點（台灣早上8點）
-  workflow_dispatch:  # 也可以手動執行
+    - cron: '0 0 * * *'       # 每天自動執行（台灣早上 8 點）
+  workflow_dispatch:          # 可以手動執行
 
 jobs:
   update-data:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
 
-    - name: Setup Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.x'
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
 
-    - name: Install dependencies
-      run: pip install requests beautifulsoup4
+      - name: Run scraper script
+        run: python scraper.py
 
-    - name: Run scraper script
-      run: python scraper.py
-
-    - name: Commit and push JSON
-      run: |
-        git config user.name "github-actions[bot]"
-        git config user.email "github-actions[bot]@users.noreply.github.com"
-        git add data/announcements.json
-        git commit -m "自動更新公告 JSON [skip ci]" || echo "No changes"
-        git push
-
+      - name: Commit and push JSON
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/announcements.json
+          git commit -m "自動更新公告 JSON [skip ci]" || echo "No changes"
+          git push
