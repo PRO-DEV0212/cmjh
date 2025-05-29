@@ -41,7 +41,7 @@
     async function loadAnnouncements() {
       const container = document.getElementById("announcement-list");
       try {
-        const res = await fetch("/data/announcements.json");
+        const res = await fetch("data/announcements.json");
         if (!res.ok) throw new Error("HTTP錯誤 " + res.status);
         const announcements = await res.json();
 
