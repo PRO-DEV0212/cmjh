@@ -2,82 +2,186 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>崇明國中公告與榮譽榜</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>中民國中</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    /* 導覽列 */
+    nav {
+      background-color: #1e40af;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav .title {
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav ul li a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    h2 {
+      color: #1d4ed8;
+      border-bottom: 2px solid #dbeafe;
+      padding-bottom: 0.4rem;
+    }
+
+    /* 公告樣式 */
+    .announcement {
+      background: white;
+      border-left: 5px solid #1d4ed8;
+      margin-bottom: 1rem;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .announcement a {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #1e3a8a;
+      text-decoration: none;
+    }
+
+    .announcement .date {
+      font-size: 0.9rem;
+      color: #6b7280;
+      margin-top: 0.3rem;
+    }
+
+    /* 重點網站 */
+    .links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .link-card {
+      background: white;
+      padding: 1rem;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease;
+    }
+
+    .link-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .link-card a {
+      color: #1e40af;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 0.3rem;
+      }
+    }
+  </style>
 </head>
-<body class="bg-gray-100 font-sans">
-  <header class="bg-white shadow sticky top-0 z-50">
-    <nav class="container mx-auto p-4 flex justify-between items-center">
-      <h1 class="text-xl font-bold text-blue-600">崇明國中</h1>
-      <ul class="hidden md:flex gap-6 text-gray-700 font-medium">
-        <li><a href="#announcements" class="hover:text-blue-500">公告</a></li>
-        <li><a href="#honors" class="hover:text-blue-500">榮譽榜</a></li>
-        <li><a href="#links" class="hover:text-blue-500">重點網站</a></li>
-      </ul>
-    </nav>
-  </header>
+<body>
 
-  <main class="container mx-auto p-4">
-    <!-- 公告 -->
-    <section id="announcements" class="mb-8">
-      <h2 class="text-2xl font-bold mb-4">📢 最新公告</h2>
-      <ul id="announcementList" class="space-y-3"></ul>
-    </section>
+  <nav>
+    <div class="title">中民國中</div>
+    <ul>
+      <li><a href="#">學校簡介</a></li>
+      <li><a href="#">最新消息</a></li>
+      <li><a href="#">課程計畫</a></li>
+      <li><a href="#">校園活動</a></li>
+      <li><a href="#">聯絡我們</a></li>
+    </ul>
+  </nav>
 
-    <!-- 榮譽榜 -->
-    <section id="honors" class="mb-8">
-      <h2 class="text-2xl font-bold mb-4">🏆 榮譽榜</h2>
-      <ul id="honorList" class="space-y-3"></ul>
-    </section>
+  <div class="container">
+    <h2>📢 最新行政公告</h2>
+    <div id="announcements">載入中...</div>
 
-    <!-- 重點網站 -->
-    <section id="links">
-      <h2 class="text-2xl font-bold mb-4">🔗 重點網站</h2>
-      <div class="grid md:grid-cols-3 gap-4">
-        <a href="https://www.edu.tw" target="_blank" class="bg-white p-4 rounded-xl shadow hover:bg-blue-50">
-          <h3 class="text-lg font-semibold">教育部</h3>
-          <p class="text-sm text-gray-600">https://www.edu.tw</p>
-        </a>
-        <a href="https://www.tn.edu.tw" target="_blank" class="bg-white p-4 rounded-xl shadow hover:bg-blue-50">
-          <h3 class="text-lg font-semibold">臺南市教育局</h3>
-          <p class="text-sm text-gray-600">https://www.tn.edu.tw</p>
-        </a>
-        <a href="https://eschool.tn.edu.tw" target="_blank" class="bg-white p-4 rounded-xl shadow hover:bg-blue-50">
-          <h3 class="text-lg font-semibold">校務行政系統</h3>
-          <p class="text-sm text-gray-600">https://eschool.tn.edu.tw</p>
-        </a>
-      </div>
-    </section>
-  </main>
+    <h2>🌐 重點網站</h2>
+    <div class="links">
+      <div class="link-card"><a href="https://www.edu.tw" target="_blank">教育部</a></div>
+      <div class="link-card"><a href="https://www.tn.edu.tw" target="_blank">臺南市教育局</a></div>
+      <div class="link-card"><a href="https://www.ceec.edu.tw" target="_blank">會考中心</a></div>
+      <div class="link-card"><a href="https://www.coolenglish.edu.tw" target="_blank">Cool English</a></div>
+    </div>
+  </div>
 
   <script>
-    // 從 announcements.json 載入公告資料
-    fetch('data/announcements.json')
-      .then(response => response.json())
+    fetch("data/announcements.json")
+      .then(res => res.json())
       .then(data => {
-        const annList = document.getElementById('announcementList');
-        data.forEach(item => {
-          const li = document.createElement('li');
-          li.className = 'bg-white p-4 shadow rounded-lg border-l-4 border-blue-500 hover:bg-blue-50 cursor-pointer';
-          li.innerHTML = `<span class='font-semibold text-blue-700'>${item.date}</span> - ${item.title}`;
-          li.onclick = () => window.open(item.url, '_blank');
-          annList.appendChild(li);
-        });
-      });
+        const container = document.getElementById("announcements");
+        container.innerHTML = "";
 
-    // 從 honors.json 載入榮譽榜資料
-    fetch('data/honors.json')
-      .then(response => response.json())
-      .then(data => {
-        const honorList = document.getElementById('honorList');
+        if (data.length === 0) {
+          container.textContent = "目前沒有公告。";
+          return;
+        }
+
         data.forEach(item => {
-          const li = document.createElement('li');
-          li.className = 'bg-white p-4 shadow rounded-lg border-l-4 border-yellow-400 hover:bg-yellow-50 cursor-pointer';
-          li.innerHTML = `${item.student} - ${item.achievement}（${item.date}）`;
-          li.onclick = () => window.open(item.url, '_blank');
-          honorList.appendChild(li);
+          const div = document.createElement("div");
+          div.className = "announcement";
+
+          const a = document.createElement("a");
+          a.href = item.url;
+          a.target = "_blank";
+          a.textContent = item.title;
+
+          const date = document.createElement("div");
+          date.className = "date";
+          date.textContent = "發布日期：" + item.date;
+
+          div.appendChild(a);
+          div.appendChild(date);
+          container.appendChild(div);
         });
+      })
+      .catch(err => {
+        document.getElementById("announcements").textContent = "公告載入失敗。";
+        console.error(err);
       });
   </script>
 </body>
