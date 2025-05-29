@@ -11,7 +11,6 @@ soup = BeautifulSoup(response.text, "html.parser")
 
 announcements = []
 
-# 找出首頁行政公告區塊
 news_section = soup.select_one("div#tadnews")
 if news_section:
     items = news_section.select("li")
@@ -30,7 +29,6 @@ if news_section:
             "date": date
         })
 
-# 儲存成 JSON
 with open("data/announcements.json", "w", encoding="utf-8") as f:
     json.dump(announcements, f, ensure_ascii=False, indent=2)
 
