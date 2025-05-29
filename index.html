@@ -1,188 +1,72 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>中民國中</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: "Segoe UI", sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
-    }
-
-    /* 導覽列 */
-    nav {
-      background-color: #1e40af;
-      color: white;
-      padding: 0.75rem 1.5rem;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    nav .title {
-      font-size: 1.3rem;
-      font-weight: bold;
-    }
-
-    nav ul {
-      display: flex;
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    nav ul li a {
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    nav ul li a:hover {
-      text-decoration: underline;
-    }
-
-    .container {
-      max-width: 960px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-
-    h2 {
-      color: #1d4ed8;
-      border-bottom: 2px solid #dbeafe;
-      padding-bottom: 0.4rem;
-    }
-
-    /* 公告樣式 */
-    .announcement {
-      background: white;
-      border-left: 5px solid #1d4ed8;
-      margin-bottom: 1rem;
-      padding: 1rem 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    }
-
-    .announcement a {
-      font-size: 1.1rem;
-      font-weight: bold;
-      color: #1e3a8a;
-      text-decoration: none;
-    }
-
-    .announcement .date {
-      font-size: 0.9rem;
-      color: #6b7280;
-      margin-top: 0.3rem;
-    }
-
-    /* 重點網站 */
-    .links {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
-    .link-card {
-      background: white;
-      padding: 1rem;
-      border-radius: 10px;
-      text-align: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-      transition: transform 0.2s ease;
-    }
-
-    .link-card:hover {
-      transform: translateY(-4px);
-    }
-
-    .link-card a {
-      color: #1e40af;
-      font-weight: 500;
-      text-decoration: none;
-    }
-
-    @media (max-width: 600px) {
-      nav {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-      }
-
-      nav ul {
-        flex-direction: column;
-        gap: 0.3rem;
-      }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>崇明國中網站</title>
+<style>
+  body { font-family: "Microsoft JhengHei", sans-serif; margin:0; padding:0; background:#f4f4f4;}
+  nav { background:#004080; padding:10px;}
+  nav a { color:#fff; margin: 0 10px; text-decoration:none; font-weight:bold;}
+  nav a:hover { text-decoration:underline;}
+  .container { max-width: 900px; margin: 20px auto; background:#fff; padding:20px; box-shadow: 0 0 8px rgba(0,0,0,0.1);}
+  h1 { color:#004080;}
+  .announcements ul { list-style:none; padding:0;}
+  .announcements li { padding:10px 0; border-bottom:1px solid #ddd;}
+  .announcements li a { color:#004080; text-decoration:none;}
+  .announcements li a:hover { text-decoration:underline;}
+  .announcements time { color:#888; font-size:0.9em; margin-left:10px;}
+  .highlight-sites { margin-top:30px; }
+  .highlight-sites a { display:inline-block; background:#004080; color:#fff; padding:10px 15px; margin:5px; border-radius:4px; text-decoration:none;}
+  .highlight-sites a:hover { background:#0066cc;}
+</style>
 </head>
 <body>
+<nav>
+  <a href="#">首頁</a>
+  <a href="#">學校簡介</a>
+  <a href="#">教學資源</a>
+  <a href="#">學生專區</a>
+  <a href="#">家長專區</a>
+  <a href="#">行政公告</a>
+</nav>
 
-  <nav>
-    <div class="title">中民國中</div>
-    <ul>
-      <li><a href="#">學校簡介</a></li>
-      <li><a href="#">最新消息</a></li>
-      <li><a href="#">課程計畫</a></li>
-      <li><a href="#">校園活動</a></li>
-      <li><a href="#">聯絡我們</a></li>
+<div class="container">
+  <h1>最新行政公告（僅顯示最近7天）</h1>
+  <div class="announcements">
+    <ul id="announcement-list">
+      <!-- 公告由 JavaScript 載入 -->
     </ul>
-  </nav>
-
-  <div class="container">
-    <h2>📢 最新行政公告</h2>
-    <div id="announcements">載入中...</div>
-
-    <h2>🌐 重點網站</h2>
-    <div class="links">
-      <div class="link-card"><a href="https://www.edu.tw" target="_blank">教育部</a></div>
-      <div class="link-card"><a href="https://www.tn.edu.tw" target="_blank">臺南市教育局</a></div>
-      <div class="link-card"><a href="https://www.ceec.edu.tw" target="_blank">會考中心</a></div>
-      <div class="link-card"><a href="https://www.coolenglish.edu.tw" target="_blank">Cool English</a></div>
-    </div>
   </div>
 
-  <script>
-    fetch("data/announcements.json")
-      .then(res => res.json())
-      .then(data => {
-        const container = document.getElementById("announcements");
-        container.innerHTML = "";
+  <div class="highlight-sites">
+    <h2>重點網站</h2>
+    <a href="https://www.cmjh.tn.edu.tw/modules/tadnews/index.php?nsn=7562" target="_blank">榮譽榜</a>
+    <a href="https://www.cmjh.tn.edu.tw/modules/tadnews/index.php?nsn=1000" target="_blank">教學資源</a>
+    <a href="https://www.cmjh.tn.edu.tw/modules/tadnews/index.php?nsn=2000" target="_blank">學生專區</a>
+  </div>
+</div>
 
-        if (data.length === 0) {
-          container.textContent = "目前沒有公告。";
-          return;
+<script>
+  fetch('data/announcements.json')
+    .then(response => response.json())
+    .then(data => {
+      const list = document.getElementById('announcement-list');
+      const now = new Date();
+      data.forEach(item => {
+        const date = new Date(item.date);
+        const diffTime = Math.abs(now - date);
+        const diffDays = diffTime / (1000 * 60 * 60 * 24);
+        if (diffDays <= 7) {
+          const li = document.createElement('li');
+          li.innerHTML = `<a href="${item.url}" target="_blank">${item.title}</a><time>${item.date}</time>`;
+          list.appendChild(li);
         }
-
-        data.forEach(item => {
-          const div = document.createElement("div");
-          div.className = "announcement";
-
-          const a = document.createElement("a");
-          a.href = item.url;
-          a.target = "_blank";
-          a.textContent = item.title;
-
-          const date = document.createElement("div");
-          date.className = "date";
-          date.textContent = "發布日期：" + item.date;
-
-          div.appendChild(a);
-          div.appendChild(date);
-          container.appendChild(div);
-        });
-      })
-      .catch(err => {
-        document.getElementById("announcements").textContent = "公告載入失敗。";
-        console.error(err);
       });
-  </script>
+    })
+    .catch(() => {
+      document.getElementById('announcement-list').innerHTML = '<li>公告資料載入失敗</li>';
+    });
+</script>
 </body>
 </html>
