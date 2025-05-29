@@ -2,12 +2,16 @@ name: Update Announcements
 
 on:
   schedule:
-    - cron: '*/30 * * * *'  # 每 30 分鐘更新一次
-  workflow_dispatch:        # 可手動執行
+    - cron: '*/30 * * * *'  # 每 30 分鐘執行一次
+  workflow_dispatch:
+
+permissions:
+  contents: write  # ✅ 允許 push 回 repository
 
 jobs:
   update:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
