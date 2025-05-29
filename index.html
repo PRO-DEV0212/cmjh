@@ -1,190 +1,71 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>崇明國中公告板</title>
-<style>
-  /* Reset */
-  * {
-    box-sizing: border-box;
-  }
-  body {
-    margin: 0; padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--bg);
-    color: var(--text);
-    transition: background-color 0.3s, color 0.3s;
-  }
-
-  /* 深淺色模式變數 */
-  :root {
-    --bg: #f9f9f9;
-    --text: #222;
-    --card-bg: #fff;
-    --card-shadow: rgba(0,0,0,0.15);
-    --nav-bg: #004080;
-    --nav-text: #fff;
-    --btn-bg: #0066cc;
-    --btn-text: #fff;
-  }
-  [data-theme="dark"] {
-    --bg: #121212;
-    --text: #eee;
-    --card-bg: #1f1f1f;
-    --card-shadow: rgba(255,255,255,0.1);
-    --nav-bg: #001f3f;
-    --nav-text: #ddd;
-    --btn-bg: #3399ff;
-    --btn-text: #111;
-  }
-
-  /* 導覽列 */
-  nav {
-    background-color: var(--nav-bg);
-    color: var(--nav-text);
-    display: flex;
-    align-items: center;
-    padding: 0.75rem 1rem;
-    font-weight: bold;
-  }
-  nav .brand {
-    font-size: 1.25rem;
-  }
-  nav .spacer {
-    flex-grow: 1;
-  }
-  nav button {
-    background-color: var(--btn-bg);
-    color: var(--btn-text);
-    border: none;
-    border-radius: 4px;
-    padding: 0.4rem 1rem;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.3s;
-  }
-  nav button:hover {
-    background-color: #004a99;
-  }
-
-  /* 主內容區 */
-  main {
-    max-width: 960px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(280px,1fr));
-    gap: 1.5rem;
-  }
-
-  /* 公告卡片 */
-  .card {
-    background-color: var(--card-bg);
-    box-shadow: 0 2px 8px var(--card-shadow);
-    border-radius: 8px;
-    padding: 1rem;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  .card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 6px 15px var(--card-shadow);
-  }
-  .card .date {
-    font-size: 0.85rem;
-    color: #888;
-    margin-bottom: 0.4rem;
-  }
-  .card a {
-    text-decoration: none;
-    color: var(--text);
-    font-weight: 600;
-    font-size: 1.1rem;
-  }
-  .card a:hover {
-    text-decoration: underline;
-  }
-
-  /* 載入失敗訊息 */
-  #errorMsg {
-    color: #b00;
-    text-align: center;
-    margin-top: 2rem;
-    font-weight: bold;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>崇明國中公告</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* 深淺色切換過渡 */
+    html {
+      transition: background-color 0.3s, color 0.3s;
+    }
+  </style>
 </head>
-<body>
-<nav>
-  <div class="brand">崇明國中公告</div>
-  <div class="spacer"></div>
-  <button id="toggleThemeBtn">切換深淺模式</button>
-</nav>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
 
-<main id="announcementContainer">
-  <!-- 公告卡片會自動插入這裡 -->
-</main>
+  <!-- 頂部導覽列 -->
+  <nav class="bg-white dark:bg-gray-800 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+      <a href="/" class="text-xl font-bold hover:text-blue-600 dark:hover:text-blue-400">崇明國中</a>
+      <div>
+        <a href="/" class="mx-2 hover:text-blue-600 dark:hover:text-blue-400">首頁</a>
+        <a href="/announcements.html" class="mx-2 font-semibold text-blue-600 dark:text-blue-400">公告</a>
+        <a href="/honor-roll.html" class="mx-2 hover:text-blue-600 dark:hover:text-blue-400">榮譽榜</a>
+      </div>
+    </div>
+  </nav>
 
-<div id="errorMsg" style="display:none;">公告載入失敗，請稍後再試。</div>
+  <!-- 主內容區 -->
+  <main class="flex-grow max-w-7xl mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-6 text-center">最新公告</h1>
 
-<script>
-  const container = document.getElementById('announcementContainer');
-  const errorMsg = document.getElementById('errorMsg');
-  const toggleBtn = document.getElementById('toggleThemeBtn');
+    <div id="announcement-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <!-- 公告卡片會被 JS 塞進來 -->
+      <p class="text-center text-gray-500 dark:text-gray-400">載入中...</p>
+    </div>
+  </main>
 
-  toggleBtn.onclick = () => {
-    if(document.documentElement.getAttribute('data-theme') === 'dark'){
-      document.documentElement.removeAttribute('data-theme');
-    } else {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    }
-  };
+  <!-- 載入公告 JS -->
+  <script>
+    async function loadAnnouncements() {
+      const container = document.getElementById("announcement-list");
+      try {
+        const res = await fetch("/data/announcements.json");
+        if (!res.ok) throw new Error("HTTP錯誤 " + res.status);
+        const announcements = await res.json();
 
-  async function loadAnnouncements() {
-    try {
-      const res = await fetch('/data/announcements.json', {cache: "no-cache"});
-      if(!res.ok) throw new Error('Network response was not ok');
-      const data = await res.json();
+        if (!Array.isArray(announcements) || announcements.length === 0) {
+          container.innerHTML = "<p class='col-span-full text-center text-gray-500 dark:text-gray-400'>目前沒有公告</p>";
+          return;
+        }
 
-      if(!Array.isArray(data) || data.length === 0) {
-        throw new Error('公告資料格式錯誤或為空');
+        container.innerHTML = announcements.map(ann => `
+          <a href="${ann.url}" target="_blank" rel="noopener noreferrer"
+            class="block p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-xl transition duration-300">
+            <div class="text-sm text-gray-400 dark:text-gray-500">${ann.date}</div>
+            <div class="mt-2 text-lg font-semibold text-gray-900 dark:text-gray-100">${ann.title}</div>
+          </a>
+        `).join("");
+
+      } catch (error) {
+        container.innerHTML = `<p class="col-span-full text-center text-red-500">公告載入失敗，請稍後再試。</p>`;
+        console.error("公告載入錯誤:", error);
       }
-
-      // 清空先前內容
-      container.innerHTML = '';
-      errorMsg.style.display = 'none';
-
-      data.forEach(item => {
-        const card = document.createElement('div');
-        card.className = 'card';
-
-        const date = document.createElement('div');
-        date.className = 'date';
-        date.textContent = item.date;
-
-        const title = document.createElement('a');
-        title.href = item.url;
-        title.target = '_blank';
-        title.rel = 'noopener noreferrer';
-        title.textContent = item.title;
-
-        card.appendChild(date);
-        card.appendChild(title);
-
-        container.appendChild(card);
-      });
-    } catch(e) {
-      container.innerHTML = '';
-      errorMsg.style.display = 'block';
-      console.error('公告載入錯誤:', e);
     }
-  }
 
-  loadAnnouncements();
-</script>
+    loadAnnouncements();
+  </script>
+
 </body>
 </html>
