@@ -9,6 +9,7 @@
 /script.js 主程式 JavaScript
 /data/announcements.json 公告資料（JSON 格式）
 /image 存放圖示
+scriper.py 抓取爬蟲公告
 
 ## ✨ 功能特色
 
