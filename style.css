@@ -1,33 +1,259 @@
-/* Reset */ * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: "Noto Sans TC", sans-serif; background-color: white; color: black; transition: background-color 0.5s ease, color 0.5s ease; }
-body.dark { background-color: #000; color: #fff; }
-nav { position: fixed; top: 0; left: 0; right: 0; height: 56px; background-color: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; align-items: center; padding: 0 20px; z-index: 1000; transition: background-color 0.5s ease; }
-body.dark nav { background-color: #000; color: #fff; box-shadow: 0 2px 5px rgba(255 255 255 / 0.1); }
-nav .logo { display: flex; align-items: center; cursor: pointer; margin-right: 30px; }
-nav .logo img { height: 32px; margin-right: 8px; }
-nav .logo span { font-weight: 700; font-size: 18px; color: inherit; }
-nav ul { list-style: none; display: flex; gap: 30px; flex-grow: 1; }
-nav ul li { position: relative; }
-nav ul li a { color: inherit; text-decoration: none; font-weight: 500; font-size: 16px; padding: 10px 0; display: inline-block; cursor: pointer; transition: color 0.3s ease; }
-nav ul li a:hover { color: #6666ff; }
-nav ul li.active a { color: #FFD600; }
-nav ul li.active::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background: #FFD600; border-radius: 3px 3px 0 0; animation: slideIn 0.3s forwards; }
-@keyframes slideIn { from { width: 0; } to { width: 100%; } }
-main { padding-top: 70px; max-width: 960px; margin: 0 auto; transition: color 0.5s ease; }
-#welcome-screen { position: fixed; inset: 0; background-color: #fff; color: #000; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 32px; font-weight: 700; z-index: 2000; opacity: 1; transition: opacity 1s ease; }
-#welcome-screen.hidden { opacity: 0; pointer-events: none; }
-#welcome-screen img { width: 120px; height: 120px; margin-bottom: 16px; }
-#theme-toggle { cursor: pointer; width: 28px; height: 28px; margin-left: auto; filter: invert(0); transition: filter 0.5s ease; }
-body.dark #theme-toggle { filter: invert(1); }
-section#announcements, section#common-sites { margin-top: 30px; }
-section h2 { font-size: 24px; font-weight: 700; margin-bottom: 16px; color: inherit; }
-.announcement-list { display: flex; flex-direction: column; gap: 12px; }
-.announcement-item { background-color: transparent; border: 2px solid transparent; padding: 14px 20px; border-radius: 8px; cursor: pointer; transition: border-color 3s linear; color: inherit; text-decoration: none; position: relative; }
-.announcement-item:hover { animation: rgbBorder 6s linear infinite; border-width: 2px; }
-.announcement-item span.date { font-size: 12px; color: #aaa; margin-right: 10px; }
-@keyframes rgbBorder { 0% { border-color: red; } 14% { border-color: orange; } 28% { border-color: yellow; } 42% { border-color: green; } 57% { border-color: blue; } 71% { border-color: indigo; } 85% { border-color: violet; } 100% { border-color: red; } }
-.common-list { display: flex; flex-wrap: wrap; gap: 12px; }
-.common-item { flex: 0 1 calc(25% - 12px); background-color: #f0f0f0; border-radius: 8px; padding: 12px 10px; text-align: center; font-weight: 600; font-size: 14px; color: #000; text-decoration: none; transition: background-color 0.3s ease; }
-body.dark .common-item { background-color: #111; color: #eee; }
-.common-item:hover { background: linear-gradient(90deg, #40c4ff, #a974ff); color: #fff; }
-@media (max-width: 600px) { nav ul { gap: 12px; } .common-item { flex: 0 1 calc(50% - 12px); font-size: 13px; } }
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Noto Sans TC", sans-serif;
+  background-color: white;
+  color: black;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+body.dark {
+  background-color: #000;
+  color: #fff;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 1000;
+  transition: background-color 0.5s ease;
+}
+
+body.dark nav {
+  background-color: #000;
+  color: #fff;
+  box-shadow: 0 2px 5px rgba(255 255 255 / 0.1);
+}
+
+nav .logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-right: 30px;
+}
+
+nav .logo img {
+  height: 32px;
+  margin-right: 8px;
+}
+
+nav .logo span {
+  font-weight: 700;
+  font-size: 18px;
+  color: inherit;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  flex-grow: 1;
+}
+
+nav ul li {
+  position: relative;
+}
+
+nav ul li a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 10px 0;
+  display: inline-block;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: #6666ff;
+}
+
+nav ul li.active a {
+  color: #ffd600;
+}
+
+nav ul li.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #ffd600;
+  border-radius: 3px 3px 0 0;
+  animation: slideIn 0.3s forwards;
+}
+
+@keyframes slideIn {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+main {
+  padding-top: 70px;
+  max-width: 960px;
+  margin: 0 auto;
+  transition: color 0.5s ease;
+}
+
+#welcome-screen {
+  position: fixed;
+  inset: 0;
+  background-color: #fff;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  font-weight: 700;
+  z-index: 2000;
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+#welcome-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#welcome-screen img {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 16px;
+}
+
+#theme-toggle {
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  margin-left: auto;
+  /* 移除了 filter 和相關的 transition，因為圖示切換由 JavaScript 的 src 決定 */
+}
+
+/* 移除了 body.dark #theme-toggle 的 filter: invert(1); 規則 */
+
+section#announcements,
+section#common-sites {
+  margin-top: 30px;
+}
+
+section h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: inherit;
+}
+
+.announcement-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.announcement-item {
+  background-color: transparent;
+  border: 2px solid transparent;
+  padding: 14px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 3s linear; /* 注意：這裡原為 border-color 3s linear，但原先並無設定初始 border-color，可能導致動畫起始不明顯 */
+  color: inherit;
+  text-decoration: none;
+  position: relative;
+}
+
+.announcement-item:hover {
+  animation: rgbBorder 6s linear infinite;
+  border-width: 2px; /* 確保 hover 時邊框寬度一致 */
+}
+
+.announcement-item span.date {
+  font-size: 12px;
+  color: #aaa;
+  margin-right: 10px;
+}
+
+@keyframes rgbBorder {
+  0% {
+    border-color: red;
+  }
+  14% {
+    border-color: orange;
+  }
+  28% {
+    border-color: yellow;
+  }
+  42% {
+    border-color: green;
+  }
+  57% {
+    border-color: blue;
+  }
+  71% {
+    border-color: indigo;
+  }
+  85% {
+    border-color: violet;
+  }
+  100% {
+    border-color: red;
+  }
+}
+
+.common-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.common-item {
+  flex: 0 1 calc(25% - 12px);
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  padding: 12px 10px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+  color: #000;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease; /* 加上 color 的 transition */
+}
+
+body.dark .common-item {
+  background-color: #111;
+  color: #eee;
+}
+
+.common-item:hover {
+  background: linear-gradient(90deg, #40c4ff, #a974ff);
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+  nav ul {
+    gap: 12px;
+  }
+  .common-item {
+    flex: 0 1 calc(50% - 12px);
+    font-size: 13px;
+  }
+}
