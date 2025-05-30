@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>崇明國中</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="icon.png">
 </head>
 <body>
   <div id="welcome-screen">
@@ -12,7 +13,7 @@
     崇明國中歡迎光臨
   </div>
 
-  <nav>
+    <nav>
     <div class="logo" onclick="scrollToSection('welcome-screen')">
       <img src="icon.png" alt="Logo" />
       <span>崇明國中</span>
@@ -20,9 +21,11 @@
     <ul>
       <li class="active"><a href="#common-sites" onclick="setActive(event)">常用網站</a></li>
       <li><a href="#announcements" onclick="setActive(event)">行政公告</a></li>
+      <li><a href="https://github.com/PRO-DEV0212/cmjh" target="_blank" rel="noopener noreferrer">GitHub</a></li>
     </ul>
     <img id="theme-toggle" src="淺色模式.png" alt="切換深淺模式" title="切換深淺模式" />
   </nav>
+
 
   <main style="opacity: 0;">
     <section id="common-sites">
