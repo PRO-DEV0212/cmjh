@@ -1,71 +1,41 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>崇明國中公告</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* 深淺色切換過渡 */
-    html {
-      transition: background-color 0.3s, color 0.3s;
-    }
-  </style>
+  <title>崇明國中</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
+<body>
+  <div id="welcome-screen">
+    <img src="icon.png" alt="崇明國中圖標" />
+    崇明國中歡迎光臨
+  </div>
 
-  <!-- 頂部導覽列 -->
-  <nav class="bg-white dark:bg-gray-800 shadow-md">
-    <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-      <a href="/" class="text-xl font-bold hover:text-blue-600 dark:hover:text-blue-400">崇明國中</a>
-      <div>
-        <a href="/" class="mx-2 hover:text-blue-600 dark:hover:text-blue-400">首頁</a>
-        <a href="/announcements.html" class="mx-2 font-semibold text-blue-600 dark:text-blue-400">公告</a>
-        <a href="/honor-roll.html" class="mx-2 hover:text-blue-600 dark:hover:text-blue-400">榮譽榜</a>
-      </div>
+  <nav>
+    <div class="logo" onclick="scrollToSection('welcome-screen')">
+      <img src="icon.png" alt="Logo" />
+      <span>崇明國中</span>
     </div>
+    <ul>
+      <li class="active"><a href="#common-sites" onclick="setActive(event)">常用網站</a></li>
+      <li><a href="#announcements" onclick="setActive(event)">行政公告</a></li>
+    </ul>
+    <img id="theme-toggle" src="淺色模式.png" alt="切換深淺模式" title="切換深淺模式" />
   </nav>
 
-  <!-- 主內容區 -->
-  <main class="flex-grow max-w-7xl mx-auto p-6">
-    <h1 class="text-3xl font-bold mb-6 text-center">最新公告</h1>
+  <main style="opacity: 0;">
+    <section id="common-sites">
+      <h2>常用網站</h2>
+      <div class="common-list" id="common-list"></div>
+    </section>
 
-    <div id="announcement-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-      <!-- 公告卡片會被 JS 塞進來 -->
-      <p class="text-center text-gray-500 dark:text-gray-400">載入中...</p>
-    </div>
+    <section id="announcements">
+      <h2>行政公告</h2>
+      <div class="announcement-list" id="announcement-list"></div>
+    </section>
   </main>
 
-  <!-- 載入公告 JS -->
-  <script>
-    async function loadAnnouncements() {
-      const container = document.getElementById("announcement-list");
-      try {
-        const res = await fetch("data/announcements.json");
-        if (!res.ok) throw new Error("HTTP錯誤 " + res.status);
-        const announcements = await res.json();
-
-        if (!Array.isArray(announcements) || announcements.length === 0) {
-          container.innerHTML = "<p class='col-span-full text-center text-gray-500 dark:text-gray-400'>目前沒有公告</p>";
-          return;
-        }
-
-        container.innerHTML = announcements.map(ann => `
-          <a href="${ann.url}" target="_blank" rel="noopener noreferrer"
-            class="block p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-xl transition duration-300">
-            <div class="text-sm text-gray-400 dark:text-gray-500">${ann.date}</div>
-            <div class="mt-2 text-lg font-semibold text-gray-900 dark:text-gray-100">${ann.title}</div>
-          </a>
-        `).join("");
-
-      } catch (error) {
-        container.innerHTML = `<p class="col-span-full text-center text-red-500">公告載入失敗，請稍後再試。</p>`;
-        console.error("公告載入錯誤:", error);
-      }
-    }
-
-    loadAnnouncements();
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
