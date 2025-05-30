@@ -60,7 +60,7 @@ nav ul {
   list-style: none;
   display: flex;
   gap: 30px;
-  flex-grow: 1;
+  flex-grow: 1; /* 讓 ul 佔據大部分空間，將登入連結和主題切換按鈕推向右邊 */
 }
 
 nav ul li {
@@ -107,6 +107,29 @@ nav ul li.active::after {
   }
 }
 
+/* 新增的登入連結樣式 */
+.nav-login-link {
+  color: inherit; /* 繼承導覽列的文字顏色 */
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 10px 15px; /* 給予一些內邊距 */
+  margin-left: auto; /* 將登入連結推到最右邊，在主題切換按鈕之前 */
+  white-space: nowrap; /* 防止文字換行 */
+  transition: color 0.3s ease, background-color 0.3s ease;
+  border-radius: 5px; /* 輕微圓角 */
+}
+
+.nav-login-link:hover {
+  color: #6666ff; /* 懸停時的顏色 */
+}
+
+body.dark .nav-login-link:hover {
+  color: #ffd600; /* 深色模式下懸停時的顏色 */
+}
+/* 結束新增的登入連結樣式 */
+
+
 main {
   padding-top: 70px;
   max-width: 960px;
@@ -145,7 +168,6 @@ main {
   cursor: pointer;
   width: 28px;
   height: 28px;
-  margin-left: auto;
   /* 移除了 filter 和相關的 transition，因為圖示切換由 JavaScript 的 src 決定 */
 }
 
@@ -175,7 +197,7 @@ section h2 {
   padding: 14px 20px;
   border-radius: 8px;
   cursor: pointer;
-  transition: border-color 3s linear; /* 注意：這裡原為 border-color 3s linear，但原先並無設定初始 border-color，可能導致動畫起始不明顯 */
+  transition: border-color 3s linear;
   color: inherit;
   text-decoration: none;
   position: relative;
@@ -183,7 +205,7 @@ section h2 {
 
 .announcement-item:hover {
   animation: rgbBorder 6s linear infinite;
-  border-width: 2px; /* 確保 hover 時邊框寬度一致 */
+  border-width: 2px;
 }
 
 .announcement-item span.date {
@@ -235,7 +257,7 @@ section h2 {
   font-size: 14px;
   color: #000;
   text-decoration: none;
-  transition: background-color 0.3s ease, color 0.3s ease; /* 加上 color 的 transition */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body.dark .common-item {
@@ -251,6 +273,15 @@ body.dark .common-item {
 @media (max-width: 600px) {
   nav ul {
     gap: 12px;
+  }
+  /* 確保在小螢幕上，登入連結和主題切換按鈕之間有適當的間距 */
+  .nav-login-link {
+    font-size: 14px;
+    padding: 8px 10px;
+    margin-left: 10px; /* 在小螢幕上給予一些左邊距 */
+  }
+  #theme-toggle {
+    margin-left: 10px; /* 在小螢幕上也確保主題切換按鈕有適當的左邊距 */
   }
   .common-item {
     flex: 0 1 calc(50% - 12px);
