@@ -8,34 +8,39 @@
   <link rel="icon" type="image/png" href="icon.png">
 </head>
 <body>
-  <div id="welcome-screen">
-    <img src="icon.png" alt="崇明國中圖標" />
-    崇明國中歡迎光臨
-  </div>
 
-    <nav>
-  <div class="logo" onclick="scrollToSection('welcome-screen')">
-    <img src="icon.png" alt="Logo" />
-    <span>崇明國中-精簡版</span>
-  </div>
-  <ul>
-    <li class="active"><a href="#common-sites" onclick="setActive(event)">常用網站</a></li>
-    <li><a href="#announcements" onclick="setActive(event)">行政公告</a></li>
-    <li><a href="https://github.com/PRO-DEV0212/cmjh" target="_blank" rel="noopener noreferrer">開源GitHub</a></li>
-  </ul>
-  <a href="https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&hd=cmjh.tn.edu.tw&osid=1&sacu=1&service=mail&flowName=GlifWebSignIn&flowEntry=AddSession&dsh=S-1559718643%3A1748615603899033" target="_blank" rel="noopener noreferrer" class="nav-login-link">登入</a>
-  <img id="theme-toggle" src="淺色模式.png" alt="切換深淺模式" title="切換深淺模式" />
-</nav>
+  <nav>
+    <div class="logo" onclick="scrollToSection('top')">
+      <img src="icon.png" alt="Logo" />
+      <span>崇明國中-精簡版</span>
+    </div>
+    <ul>
+      <li class="active"><a href="#common-sites" onclick="setActive(event)">常用網站</a></li>
+      <li><a href="#announcements" onclick="setActive(event)">行政公告</a></li>
+      <li><a href="https://github.com/PRO-DEV0212/cmjh" target="_blank" rel="noopener noreferrer">開源GitHub</a></li>
+    </ul>
+    <a href="https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&hd=cmjh.tn.edu.tw&osid=1&sacu=1&service=mail&flowName=GlifWebSignIn&flowEntry=AddSession&dsh=S-1559718643%3A1748615603899033"
+      target="_blank" rel="noopener noreferrer" class="nav-login-link">登入</a>
+    <img id="theme-toggle" src="淺色模式.png" alt="切換深淺模式" title="切換深淺模式" />
+  </nav>
 
-  <main style="opacity: 0;">
+  <main id="top">
     <section id="common-sites">
       <h2>常用網站</h2>
       <div class="common-list" id="common-list"></div>
     </section>
 
     <section id="announcements">
-      <h2>行政公告</h2>
-      <div class="announcement-list" id="announcement-list"></div>
+      <div class="section-header">
+        <h2>行政公告</h2>
+        <div class="pagination-controls" aria-label="分頁控制">
+          <button id="prev-page" aria-label="上一頁" disabled>上一頁</button>
+          <span id="page-info" aria-live="polite">第 1 / 1 頁</span>
+          <button id="next-page" aria-label="下一頁" disabled>下一頁</button>
+        </div>
+      </div>
+
+      <div class="announcement-list" id="announcement-list" aria-live="polite"></div>
     </section>
   </main>
 
