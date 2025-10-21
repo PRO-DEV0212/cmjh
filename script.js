@@ -53,7 +53,7 @@ themeToggle.addEventListener('click', () => {
 
 // 載入常用網站
 const commonSites = [
-  { name: "113下學期行事曆", url: "114學年度第一學期行事曆.pdf" },
+  { name: "114上學期行事曆", url: "114學年度第一學期行事曆.pdf" },
   { name: "英聽挑戰", url: "英聽挑戰.pdf" },
   { name: "段考成績查詢", url: "http://120.115.12.4/" },
   { name: "多元學習查詢", url: "https://jhquery.tn.edu.tw/" }
@@ -461,4 +461,5 @@ function scrollToSection(id){
 loadCommonSites();
 loadAnnouncements();
 initCalendar();
+
 
