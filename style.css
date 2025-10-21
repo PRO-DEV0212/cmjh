@@ -129,9 +129,12 @@ section h2 {
   gap: 8px;
 }
 
-.pagination-controls button {
+/* Buttons adapt to dark & light via CSS */
+.pagination-controls button,
+.calendar-controls button {
   border: 0;
   background-color: #f0f0f0;
+  color: #000;
   padding: 8px 12px;
   border-radius: 6px;
   cursor: pointer;
@@ -139,9 +142,21 @@ section h2 {
   transition: background-color 0.2s ease, transform 0.08s ease;
 }
 
-.pagination-controls button:hover:not([disabled]) {
+body.dark .pagination-controls button,
+body.dark .calendar-controls button {
+  background-color: #222;
+  color: #fff;
+}
+
+.pagination-controls button:hover:not([disabled]),
+.calendar-controls button:hover {
   transform: translateY(-1px);
   background-color: #e6e6ff;
+}
+
+body.dark .pagination-controls button:hover:not([disabled]),
+body.dark .calendar-controls button:hover {
+  background-color: #2a2a3a;
 }
 
 .pagination-controls button[disabled] {
@@ -229,11 +244,106 @@ body.dark .common-item {
   color: #fff;
 }
 
+/* ===== 行事曆樣式 ===== */
+.calendar-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#month-select {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background: #fff;
+  font-weight: 600;
+}
+
+body.dark #month-select {
+  background: #111;
+  color: #fff;
+  border-color: #333;
+}
+
+.calendar-wrapper {
+  margin-top: 8px;
+  border-radius: 8px;
+  padding: 12px;
+  background: rgba(0,0,0,0.03);
+}
+
+body.dark .calendar-wrapper {
+  background: rgba(255,255,255,0.02);
+}
+
+/* grid: 星期標頭 + 日期格 */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.calendar-cell {
+  min-height: 80px;
+  border-radius: 8px;
+  padding: 8px;
+  background: rgba(255,255,255,0.7);
+  position: relative;
+  overflow: hidden;
+}
+
+body.dark .calendar-cell {
+  background: rgba(255,255,255,0.03);
+}
+
+.calendar-cell .date-num {
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.calendar-cell .events {
+  font-size: 12px;
+  line-height: 1.25;
+  max-height: 56px;
+  overflow: hidden;
+}
+
+/* weekday header */
+.calendar-weekday {
+  font-weight: 700;
+  text-align: center;
+  padding: 6px 0;
+  color: #666;
+}
+
+.calendar-events-list {
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 6px;
+  background: rgba(0,0,0,0.03);
+  min-height: 40px;
+}
+
+body.dark .calendar-events-list {
+  background: rgba(255,255,255,0.02);
+}
+
+/* small screens */
 @media (max-width: 600px) {
-  nav ul {
-    gap: 12px;
+  .common-item {
+    flex: 0 1 calc(50% - 12px);
+    font-size: 13px;
   }
-  .nav-login-link {
-    font-size: 14px;
-    padding: 8px 10px;
-    margin-l
+  #page-info {
+    min-width: 80px;
+    font-size: 13px;
+  }
+  .calendar-cell {
+    min-height: 68px;
+  }
+  .calendar-cell .date-num {
+    font-size: 13px;
+  }
+  .calendar-cell .events { font-size: 11px; }
+}

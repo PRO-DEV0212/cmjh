@@ -17,6 +17,7 @@
     <ul>
       <li class="active"><a href="#common-sites" onclick="setActive(event)">常用網站</a></li>
       <li><a href="#announcements" onclick="setActive(event)">行政公告</a></li>
+      <li><a href="#calendar" onclick="setActive(event)">行事曆</a></li>
       <li><a href="https://github.com/PRO-DEV0212/cmjh" target="_blank" rel="noopener noreferrer">開源GitHub</a></li>
     </ul>
     <a href="https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&hd=cmjh.tn.edu.tw&osid=1&sacu=1&service=mail&flowName=GlifWebSignIn&flowEntry=AddSession&dsh=S-1559718643%3A1748615603899033"
@@ -42,6 +43,26 @@
 
       <div class="announcement-list" id="announcement-list" aria-live="polite"></div>
     </section>
+
+    <!-- ===== 行事曆區塊 ===== -->
+    <section id="calendar">
+      <div class="section-header">
+        <h2>行事曆</h2>
+        <div class="calendar-controls">
+          <button id="prev-month" aria-label="上一個月">‹</button>
+          <select id="month-select" aria-label="選擇月份"></select>
+          <button id="next-month" aria-label="下一個月">›</button>
+        </div>
+      </div>
+
+      <div class="calendar-wrapper">
+        <div id="calendar-grid" class="calendar-grid"></div>
+      </div>
+
+      <div id="calendar-events-list" class="calendar-events-list" aria-live="polite"></div>
+    </section>
+    <!-- ===== 行事曆結束 ===== -->
+
   </main>
 
   <script src="script.js"></script>
