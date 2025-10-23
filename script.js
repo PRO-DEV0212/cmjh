@@ -4,7 +4,7 @@
 // - 公告分頁（每頁 10 筆）
 // - 主題切換（淺/深模式）
 // - 常用網站列表
-// - 行事曆（從 data/calendar.json 讀取，可切換月份、自動跳到今天月份、今日高亮）
+// - 行事曆（自動跳到當前月份＋今日高亮）
 // -----------------------------
 
 const ITEMS_PER_PAGE = 10;
@@ -147,7 +147,7 @@ function escapeHtml(unsafe) {
 }
 
 // -----------------------------
-// 行事曆 (從 data/calendar.json 載入，自動跳到今日月份、今日高亮)
+// 行事曆 (自動跳到當前月份 + 今日高亮)
 // -----------------------------
 let calendarData = {};
 let monthKeys = [];
@@ -184,6 +184,7 @@ function renderCalendar(ym) {
   const last = new Date(year, month, 0);
   const startWeekday = first.getDay();
   const daysInMonth = last.getDate();
+  const today = new Date();
 
   calendarGrid.innerHTML = '';
 
@@ -210,11 +211,6 @@ function renderCalendar(ym) {
     map[dayNum].push(ev.title);
   });
 
-  const today = new Date();
-  const todayYear = today.getFullYear();
-  const todayMonth = today.getMonth() + 1;
-  const todayDate = today.getDate();
-
   for (let d = 1; d <= daysInMonth; d++) {
     const cell = document.createElement('div');
     cell.className = 'calendar-cell';
@@ -228,14 +224,17 @@ function renderCalendar(ym) {
       eventsDiv.innerHTML = map[d].slice(0,3).map(t => `• ${escapeHtml(t)}`).join('<br>');
       cell.addEventListener('click', () => showEventsList(ym, d));
     } else {
-      eventsDiv.textContent = '';
       cell.addEventListener('click', () => {
         calendarEventsList.innerHTML = `<p>${year} 年 ${month} 月 ${d} 日 沒有登記事件。</p>`;
       });
     }
 
-    // ✅ 今日加上樣式
-    if (year === todayYear && month === todayMonth && d === todayDate) {
+    // ✅ 今日高亮
+    if (
+      year === today.getFullYear() &&
+      month === today.getMonth() + 1 &&
+      d === today.getDate()
+    ) {
       cell.classList.add('today');
     }
 
@@ -299,29 +298,36 @@ function showEventsList(ym, day) {
   calendarEventsList.appendChild(frag);
 }
 
-function goToMonthIndex(idx) {
-  if (idx < 0) idx = 0;
-  if (idx >= monthKeys.length) idx = monthKeys.length - 1;
-  monthSelect.selectedIndex = idx;
-  renderCalendar(monthKeys[idx]);
-}
-
-prevMonthBtn.addEventListener('click', () => goToMonthIndex(monthSelect.selectedIndex - 1));
-nextMonthBtn.addEventListener('click', () => goToMonthIndex(monthSelect.selectedIndex + 1));
-monthSelect.addEventListener('change', (e) => renderCalendar(e.target.value));
-
 function initCalendar() {
   buildMonthSelect();
 
-  // ✅ 自動切換到今天月份
-  const now = new Date();
-  const thisYM = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2,'0')}`;
-  let idx = monthKeys.findIndex(k => k === thisYM);
-  if (idx === -1) idx = Math.max(0, monthKeys.length - 1);
+  const today = new Date();
+  const currentYM = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
+  const currentIndex = monthKeys.indexOf(currentYM);
 
-  monthSelect.selectedIndex = idx;
-  renderCalendar(monthKeys[idx]);
+  if (currentIndex !== -1) {
+    monthSelect.selectedIndex = currentIndex;
+    renderCalendar(monthKeys[currentIndex]);
+  } else {
+    // 若沒有當月，顯示最近月份
+    monthSelect.selectedIndex = monthKeys.length - 1;
+    renderCalendar(monthKeys[monthKeys.length - 1]);
+  }
 }
+
+prevMonthBtn.addEventListener('click', () => {
+  if (monthSelect.selectedIndex > 0) {
+    monthSelect.selectedIndex -= 1;
+    renderCalendar(monthKeys[monthSelect.selectedIndex]);
+  }
+});
+nextMonthBtn.addEventListener('click', () => {
+  if (monthSelect.selectedIndex < monthKeys.length - 1) {
+    monthSelect.selectedIndex += 1;
+    renderCalendar(monthKeys[monthSelect.selectedIndex]);
+  }
+});
+monthSelect.addEventListener('change', (e) => renderCalendar(e.target.value));
 
 // -----------------------------
 // navbar active 管理
