@@ -57,9 +57,13 @@ themeToggle.addEventListener('click', () => {
 // -----------------------------
 const commonSites = [
   { name: "114上學期行事曆", url: "114學年度第一學期行事曆.pdf" },
-  { name: "英聽挑戰", url: "英聽挑戰.pdf" },
+  { name: "晨間英語多媒體播放", url: "英聽挑戰.pdf" },
   { name: "段考成績查詢", url: "http://120.115.12.4/" },
-  { name: "多元學習查詢", url: "https://jhquery.tn.edu.tw/" }
+  { name: "12年國教專區", url: "https://jhquery.tn.edu.tw/" },
+  { name: "國中學生輔導資料", url: "https://jhc.tn.edu.tw/Login.action" },
+  { name: "翰林雲端學院TEAMS", url: "https://cmjhtn.teamslite.com.tw/v2/login.html" },
+  { name: "教育部因材網", url: "https://adl.edu.tw/HomePage/home/" },
+  { name: "布可星球", url: "https://read.tn.edu.tw/" },
 ];
 
 function loadCommonSites() {
