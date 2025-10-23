@@ -17,6 +17,7 @@ body.dark {
   color: #f5f5f5;
 }
 
+/* ===== 導覽列 ===== */
 nav {
   position: fixed;
   top: 0;
@@ -27,9 +28,10 @@ nav {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
   display: flex;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 10px;
   z-index: 1000;
   transition: background-color 0.5s ease;
+  overflow: hidden;
 }
 
 body.dark nav {
@@ -38,31 +40,40 @@ body.dark nav {
   box-shadow: 0 2px 5px rgba(255,255,255,0.03);
 }
 
+/* 🔹 LOGO：只保留圖示 */
 nav .logo {
   display: flex;
   align-items: center;
   cursor: pointer;
-  margin-right: 30px;
+  flex-shrink: 0;
 }
-
 nav .logo img {
   height: 32px;
-  margin-right: 8px;
 }
 
-nav .logo span {
-  font-weight: 700;
-  font-size: 18px;
-  color: inherit;
-}
-
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 30px;
+/* 🔹 可滑動導覽區 */
+.nav-scroll-wrapper {
+  position: relative;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox 隱藏滾動條 */
+  -ms-overflow-style: none; /* IE */
   flex-grow: 1;
+  margin: 0 8px;
+}
+.nav-scroll-wrapper::-webkit-scrollbar {
+  display: none; /* Chrome 隱藏滾動條 */
 }
 
+/* 🔹 導覽選單 */
+nav ul {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 30px;
+  list-style: none;
+  align-items: center;
+  white-space: nowrap;
+  padding: 0 8px;
+}
 nav ul li a {
   color: inherit;
   text-decoration: none;
@@ -71,30 +82,62 @@ nav ul li a {
   padding: 10px 0;
   display: inline-block;
 }
-
 nav ul li.active a {
   color: #ffd600;
 }
 
+/* 🔹 左右箭頭淡淡遮罩提示（預設不顯示） */
+.nav-fade {
+  display: none;
+  position: absolute;
+  top: 0;
+  width: 24px;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ✅ 僅手機端顯示淡淡漸層遮罩 */
+@media (max-width: 768px) {
+  .nav-fade {
+    display: block;
+  }
+  .nav-fade.left {
+    left: 0;
+    background: linear-gradient(to right, rgba(255,255,255,0.9), transparent);
+  }
+  .nav-fade.right {
+    right: 0;
+    background: linear-gradient(to left, rgba(255,255,255,0.9), transparent);
+  }
+  body.dark .nav-fade.left {
+    background: linear-gradient(to right, rgba(17,17,17,0.9), transparent);
+  }
+  body.dark .nav-fade.right {
+    background: linear-gradient(to left, rgba(17,17,17,0.9), transparent);
+  }
+}
+
+/* 登入按鈕與模式切換 */
 .nav-login-link {
   color: inherit;
   text-decoration: none;
   font-weight: 500;
   font-size: 16px;
   padding: 10px 15px;
-  margin-left: auto;
   white-space: nowrap;
   border-radius: 5px;
+  flex-shrink: 0;
 }
-
 #theme-toggle {
   cursor: pointer;
   width: 28px;
   height: 28px;
-  margin-left: 12px;
+  margin-left: 8px;
+  flex-shrink: 0;
 }
 
-/* Main layout */
+/* ===== Main layout ===== */
 main {
   padding-top: 80px;
   max-width: 960px;
@@ -103,11 +146,10 @@ main {
   padding-right: 16px;
 }
 
-/* Sections */
+/* ===== Sections ===== */
 section {
   margin-top: 30px;
 }
-
 section h2 {
   font-size: 24px;
   font-weight: 700;
@@ -115,7 +157,7 @@ section h2 {
   color: inherit;
 }
 
-/* Announcements header with pagination controls on the right */
+/* ===== 行政公告標題與分頁 ===== */
 .section-header {
   display: flex;
   justify-content: space-between;
@@ -171,7 +213,7 @@ body.dark .calendar-controls button:hover {
   text-align: center;
 }
 
-/* Announcement list */
+/* ===== 公告列表 ===== */
 .announcement-list {
   display: flex;
   flex-direction: column;
@@ -202,7 +244,7 @@ body.dark .calendar-controls button:hover {
   margin-right: 10px;
 }
 
-/* rainbow border animation */
+/* ===== rainbow border animation ===== */
 @keyframes rgbBorder {
   0% { border-color: red; }
   14% { border-color: orange; }
@@ -214,7 +256,7 @@ body.dark .calendar-controls button:hover {
   100% { border-color: red; }
 }
 
-/* Common sites */
+/* ===== 常用網站 ===== */
 .common-list {
   display: flex;
   flex-wrap: wrap;
@@ -329,7 +371,7 @@ body.dark .calendar-events-list {
   background: rgba(255,255,255,0.02);
 }
 
-/* small screens */
+/* ===== small screens ===== */
 @media (max-width: 600px) {
   .common-item {
     flex: 0 1 calc(50% - 12px);
