@@ -4,7 +4,7 @@
 // - 公告分頁（每頁 10 筆）
 // - 主題切換（淺/深模式）
 // - 常用網站列表
-// - 行事曆（從 data/calendar.json 讀取，可切換月份）
+// - 行事曆（從 data/calendar.json 讀取，可切換月份、自動跳到今天月份、今日高亮）
 // -----------------------------
 
 const ITEMS_PER_PAGE = 10;
@@ -147,7 +147,7 @@ function escapeHtml(unsafe) {
 }
 
 // -----------------------------
-// 行事曆 (從 data/calendar.json 載入)
+// 行事曆 (從 data/calendar.json 載入，自動跳到今日月份、今日高亮)
 // -----------------------------
 let calendarData = {};
 let monthKeys = [];
@@ -210,6 +210,11 @@ function renderCalendar(ym) {
     map[dayNum].push(ev.title);
   });
 
+  const today = new Date();
+  const todayYear = today.getFullYear();
+  const todayMonth = today.getMonth() + 1;
+  const todayDate = today.getDate();
+
   for (let d = 1; d <= daysInMonth; d++) {
     const cell = document.createElement('div');
     cell.className = 'calendar-cell';
@@ -227,6 +232,11 @@ function renderCalendar(ym) {
       cell.addEventListener('click', () => {
         calendarEventsList.innerHTML = `<p>${year} 年 ${month} 月 ${d} 日 沒有登記事件。</p>`;
       });
+    }
+
+    // ✅ 今日加上樣式
+    if (year === todayYear && month === todayMonth && d === todayDate) {
+      cell.classList.add('today');
     }
 
     cell.appendChild(dateNum);
@@ -302,8 +312,15 @@ monthSelect.addEventListener('change', (e) => renderCalendar(e.target.value));
 
 function initCalendar() {
   buildMonthSelect();
-  monthSelect.selectedIndex = 0;
-  renderCalendar(monthKeys[0]);
+
+  // ✅ 自動切換到今天月份
+  const now = new Date();
+  const thisYM = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2,'0')}`;
+  let idx = monthKeys.findIndex(k => k === thisYM);
+  if (idx === -1) idx = Math.max(0, monthKeys.length - 1);
+
+  monthSelect.selectedIndex = idx;
+  renderCalendar(monthKeys[idx]);
 }
 
 // -----------------------------
