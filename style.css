@@ -389,3 +389,20 @@ body.dark .calendar-events-list {
   }
   .calendar-cell .events { font-size: 11px; }
 }
+
+/* ===== 今日日期樣式 ===== */
+.calendar-cell.today {
+  border: 2px solid #ff9800;
+  background: rgba(255, 152, 0, 0.15);
+  position: relative;
+}
+
+.calendar-cell.today::after {
+  content: "今天";
+  position: absolute;
+  bottom: 4px;
+  right: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #ff9800;
+}
